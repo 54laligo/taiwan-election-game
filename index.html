@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#8C1D3C">
-<title>23分之1 · 2026 九合一模擬競選</title>
+<title>模擬市長選舉 · 2026 九合一模擬競選</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
@@ -46,7 +46,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media(max-width:900px){.hero{grid-template-columns:1fr;gap:28px}}
 .kicker{font-family:var(--f-mono);font-size:12px;color:var(--stamp);letter-spacing:.02em}
 .kicker .nw{display:inline-block}
-.hero h1{font-family:var(--f-display);font-weight:900;font-size:clamp(56px,11vw,150px);line-height:.95;letter-spacing:-.03em;margin:12px 0 clamp(24px,3vw,44px)}
+.hero h1{font-family:var(--f-display);font-weight:900;font-size:clamp(48px,8vw,110px);line-height:1.05;letter-spacing:-.03em;margin:12px 0 clamp(24px,3vw,44px)}
 .hero h1 em{font-style:normal;color:var(--accent)}
 .lede{font-size:18px;color:var(--ink2);max-width:34em;margin:0}
 .counter{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap}
@@ -339,7 +339,7 @@ function renderTitle(){
  <button class="themebtn" id="th" title="切換畫面明暗">◐</button>
  <div class="hero"><div>
   <div class="kicker"><span class="nw">v1.0 測試版 ·</span> <span class="nw">免費競選模擬 ·</span> <span class="nw">根據2026九合一六都候選人名單 ·</span> <span class="nw">18歲以上</span></div>
-  <h1>23分之<em>1</em></h1>
+  <h1>模擬市長<em>選舉</em></h1>
   <p class="lede">距離投票日只剩下不到兩週。你將成為六都市長候選人的其中一位，用 11 天的時間跑行程、應對突發狀況，直到 11 月 28 日開票夜。誰當選，沒有人說得準。</p>
   <div class="counter"><div><strong id="cdD">0</strong><span>距離開票（11/28 16:00）剩餘</span></div>
   <div><strong>約 ${(total/100).toFixed(0)} 萬</strong><span>六都合計選民（概數）</span></div></div>
@@ -424,7 +424,7 @@ function renderDay(){
    <div class="sched">${SCHED.map((o,i)=>`<button class="choice" data-i="${i}" ${o.need&&S.cash<o.need?'disabled':''}><b>${o.l}</b><span>${o.s}</span></button>`).join('')}</div></div>`;
  }
  app.innerHTML=`<section id="game">
- <header class="topbar"><div class="wrap"><div class="brand">23分之<em>1</em></div>
+ <header class="topbar"><div class="wrap"><div class="brand">模擬市長<em>選舉</em></div>
   <div class="agebox"><div class="age">${left}<small>天</small></div><div class="yr"><span class="t">${dstr(S.day)} · 距離開票</span><div class="prog"><i style="width:${S.day/DAYS*100}%"></i></div></div></div>
   <button class="ghost" id="quit" style="padding:6px 12px;font-size:13px">離開</button></div></header>
  <div class="wrap life">
