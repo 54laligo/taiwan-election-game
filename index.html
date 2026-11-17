@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#8C1D3C">
+<title>23分之1 · 2026 九合一模擬競選</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+ --paper:#EBF0ED;--card:#F7FAF8;--card2:#F0F4F2;--ink:#13212A;--ink2:#4A5A61;--ink3:#5F6E72;
+ --rule:#C7D2CE;--rule2:#DCE4E1;--accent:#8C1D3C;--accent-ink:#fff;--accent-soft:#F3E3E8;
+ --stamp:#0F6E68;--stamp-soft:#DCEDEA;--gold:#9C7020;--good:#2B7A4E;--bad:#B0362B;
+ --shadow:0 1px 0 rgba(19,33,42,.04),0 8px 24px -12px rgba(19,33,42,.18);
+ --f-display:'Noto Serif TC','Hahmlet',serif;
+ --f-body:'Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif;
+ --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+ --kmt:#1c4fa1;--dpp:#1b9431;--tpp:#12a6a6;--ind:#6b7280;--minor:#8b5cf6;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+ --paper:#0D1316;--card:#141D21;--card2:#1A2428;--ink:#E1E9E6;--ink2:#A3B2AF;--ink3:#8A9A96;
+ --rule:#2A383D;--rule2:#1D282C;--accent:#E2678A;--accent-ink:#1B0910;--accent-soft:#3A1C26;
+ --stamp:#4CC0AF;--stamp-soft:#12302D;--gold:#D9AF59;--good:#5CC38B;--bad:#F07B6B;
+ --shadow:0 1px 0 rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);color-scheme:dark}}
+:root[data-theme=dark]{
+ --paper:#0D1316;--card:#141D21;--card2:#1A2428;--ink:#E1E9E6;--ink2:#A3B2AF;--ink3:#8A9A96;
+ --rule:#2A383D;--rule2:#1D282C;--accent:#E2678A;--accent-ink:#1B0910;--accent-soft:#3A1C26;
+ --stamp:#4CC0AF;--stamp-soft:#12302D;--gold:#D9AF59;--good:#5CC38B;--bad:#F07B6B;
+ --shadow:0 1px 0 rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink)}
+body{font-family:var(--f-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:20px}
+.lbl{font-size:12px;letter-spacing:.04em;color:var(--ink3);font-weight:600}
+.mono{font-family:var(--f-mono)}
+[hidden]{display:none!important}
+
+/* intro */
+#intro{padding-block:40px 64px}
+.themebtn{position:absolute;right:20px;top:14px;border:1px solid var(--rule);background:var(--card);border-radius:4px;padding:4px 10px}
+.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:900px){.hero{grid-template-columns:1fr;gap:28px}}
+.kicker{font-family:var(--f-mono);font-size:12px;color:var(--stamp);letter-spacing:.02em}
+.kicker .nw{display:inline-block}
+.hero h1{font-family:var(--f-display);font-weight:900;font-size:clamp(56px,11vw,150px);line-height:.95;letter-spacing:-.03em;margin:12px 0 clamp(24px,3vw,44px)}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:18px;color:var(--ink2);max-width:34em;margin:0}
+.counter{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap}
+.counter div{display:flex;flex-direction:column}
+.counter strong{font-family:var(--f-display);font-size:34px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.counter span{font-size:13px;color:var(--ink3)}
+.odds{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:20px 22px;box-shadow:var(--shadow)}
+.odds h2{font-family:var(--f-display);font-size:20px;margin:0 0 4px;font-weight:700}
+.odds .sub{margin:0 0 14px;font-size:13px;color:var(--ink3)}
+.orow{display:grid;grid-template-columns:5.5em 1fr 4.5em;gap:10px;align-items:center;font-size:14px;padding-block:3px}
+.orow .bar{height:8px;background:var(--rule2);border-radius:1px;overflow:hidden}
+.orow .bar i{display:block;height:100%;background:var(--stamp)}
+.orow .v{text-align:right;font-family:var(--f-mono);font-size:13px;color:var(--ink2)}
+.opts{margin-top:36px;display:flex;flex-wrap:wrap;gap:28px 40px;align-items:flex-end}
+.optgroup{display:flex;flex-direction:column;gap:8px}
+.optgroup .hint{font-size:12.5px;color:var(--ink3);max-width:24em}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:var(--card)}
+.seg button{flex:1 1 auto;border:0;background:none;padding:9px 14px;font-size:14px;color:var(--ink2)}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.sel{font:inherit;font-size:14px;padding:9px 12px;border:1px solid var(--rule);border-radius:4px;background:var(--card);color:var(--ink)}
+.cta{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:4px;padding:16px 28px;font-size:18px;font-weight:700;box-shadow:var(--shadow)}
+.cta:hover{filter:brightness(1.06)}
+.ghost{background:transparent;border:1px solid var(--rule);color:var(--ink);border-radius:4px;padding:12px 18px;font-size:15px}
+.ghost:hover{border-color:var(--ink3)}
+.ctarow{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.ctahint{font-size:13px;color:var(--ink3)}
+.notes{margin-top:48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border-top:1px solid var(--rule);padding-top:24px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.notes h3{font-size:14px;margin:0 0 6px}
+.notes p{margin:0;font-size:13.5px;color:var(--ink2)}
+.fine{font-size:12.5px;color:var(--ink3);margin:14px 0 0;max-width:70em}
+
+/* roll + cert */
+#roll{min-height:80vh;display:grid;place-items:center;padding-block:40px}
+.roller{text-align:center;min-height:70vh;display:flex;flex-direction:column;justify-content:center}
+.roller .country{font-family:var(--f-display);font-size:clamp(40px,9vw,110px);font-weight:900;letter-spacing:-.02em;line-height:1.05;min-height:1.1em}
+.roller .meta{font-family:var(--f-mono);color:var(--ink3);font-size:13px;margin-top:10px}
+.cert{width:min(720px,100%);background:var(--card);border:1px solid var(--rule);border-radius:4px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.cert .band{background:var(--accent);color:var(--accent-ink);padding:12px 22px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.cert .band b{font-family:var(--f-display);font-size:18px}
+.cert .band span{font-family:var(--f-mono);font-size:12px;opacity:.85}
+.cert .body{padding:22px}
+.cert h2{font-family:var(--f-display);font-size:clamp(30px,5vw,48px);margin:0;line-height:1.15;font-weight:900}
+.cert .story{margin:12px 0 18px;font-size:16px;color:var(--ink2)}
+.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 18px;border-top:1px dashed var(--rule);padding-top:16px}
+@media(max-width:560px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fields b{display:block;font-size:15px;font-weight:700}
+.odds-line{margin-top:16px;padding:12px 14px;background:var(--stamp-soft);border-radius:3px;font-size:13.5px}
+.cert .foot{padding:0 22px 22px;display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+
+/* tags */
+.tag{display:inline-block;padding:1px 8px;border-radius:3px;font-size:12px;font-weight:700;color:#fff;vertical-align:1px}
+.tag.kmt{background:var(--kmt)}.tag.dpp{background:var(--dpp)}.tag.tpp{background:var(--tpp)}.tag.ind{background:var(--ink3)}.tag.minor{background:var(--minor)}
+
+/* game */
+.topbar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.topbar .wrap{display:flex;align-items:center;gap:18px;padding-block:10px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:900;font-size:18px;white-space:nowrap}
+.brand em{font-style:normal;color:var(--accent)}
+.agebox{display:flex;align-items:baseline;gap:10px;flex:1;min-width:220px}
+.age{font-family:var(--f-display);font-size:40px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.age small{font-size:16px;font-weight:500;margin-left:2px}
+.yr{display:flex;flex-direction:column;flex:1;min-width:0;gap:4px}
+.yr .t{font-size:13px;color:var(--ink2);white-space:nowrap}
+.prog{height:4px;background:var(--rule2);border-radius:2px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);transition:width .5s}
+.life{display:grid;grid-template-columns:320px minmax(0,1fr) 340px;gap:20px;padding-block:20px 60px;align-items:start}
+@media(max-width:1180px){.life{grid-template-columns:320px minmax(0,1fr)}.col3{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+@media(max-width:800px){.life{grid-template-columns:1fr}.col3{grid-template-columns:1fr}}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:16px;min-width:0}
+.panel>h3{margin:0 0 10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:15px}
+.panel>h3 .lbl{font-size:11px}
+.idcard{position:relative;overflow:hidden;padding:0}
+.idcard .top{background:var(--accent);color:var(--accent-ink);padding:8px 14px;display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.04em}
+.idcard .in{padding:14px 14px 10px;display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px}
+.portrait{width:64px;height:80px;border:1px solid var(--rule);border-radius:2px;background:var(--card2);display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:34px;position:relative}
+.portrait i{position:absolute;left:0;right:0;bottom:0;height:8px}
+.idcard .nm{font-family:var(--f-display);font-size:22px;font-weight:900;line-height:1.2}
+.idcard dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;margin:8px 0 0;font-size:13px}
+.idcard dt{color:var(--ink3);font-size:12px}.idcard dd{margin:0}
+.mrz{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--ink2);padding:8px 14px 12px;border-top:1px dashed var(--rule);white-space:nowrap;overflow:hidden}
+.stat{display:grid;grid-template-columns:3em minmax(0,1fr) 2.2em;gap:10px;align-items:center;font-size:13.5px;padding-block:4px}
+.stat .bar{height:10px;background:var(--rule2);border-radius:1px;overflow:hidden;position:relative}
+.stat .bar i{position:absolute;inset:0 auto 0 0;transition:width .5s}
+.stat .v{text-align:right;font-family:var(--f-mono);font-size:13px}
+.stathelp{margin-top:10px;font-size:12.5px;color:var(--ink2)}
+.stathelp summary{cursor:pointer}
+.stathelp ul{padding-left:18px;margin:6px 0}
+.sense{margin-top:12px;border-top:1px dashed var(--rule);padding-top:12px;font-size:14px;color:var(--ink2)}
+.sense b{color:var(--ink)}
+.news{background:var(--stamp-soft);border-left:3px solid var(--stamp);padding:9px 12px;font-size:14px;margin:0 0 14px;border-radius:0 3px 3px 0}
+.evt h2{font-family:var(--f-display);font-size:26px;margin:0 0 6px;font-weight:900}
+.evt p{margin:0;color:var(--ink2);font-size:15.5px}
+.choices{display:grid;gap:10px;margin-top:16px}
+.choice{display:flex;flex-direction:column;gap:3px;text-align:left;width:100%;background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:12px 14px}
+.choice:hover:not(:disabled){border-color:var(--stamp);background:var(--stamp-soft)}
+.choice:disabled{opacity:.45;cursor:not-allowed}
+.choice b{font-size:15.5px}
+.choice span{font-size:13px;color:var(--ink3)}
+.sched{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+@media(max-width:520px){.sched{grid-template-columns:1fr}}
+.feed{list-style:none;margin:0;padding:0;max-height:420px;overflow-y:auto}
+.feed li{display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:10px;padding:9px 0;border-bottom:1px solid var(--rule2);font-size:14px}
+.feed .a{font-family:var(--f-mono);font-size:12px;color:var(--ink3);padding-top:3px}
+.feed .r{display:block;font-size:12px;color:var(--ink3);margin-top:2px}
+.feed .empty{display:block;color:var(--ink3)}
+.rival{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule2);font-size:14px}
+.rival:last-child{border:0}
+.rival .n{font-weight:700}
+.rival small{display:block;color:var(--ink3);font-size:12px}
+.grid10{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.grid10 i{aspect-ratio:1;border-radius:2px;background:var(--rule2);display:grid;place-items:center;font-style:normal;font-size:10px;color:var(--ink3);font-family:var(--f-mono)}
+.grid10 i.done{background:var(--stamp);color:#fff}
+.grid10 i.now{background:var(--accent);color:#fff}
+.grid10 i.vote{background:var(--ink);color:var(--paper)}
+.gridkey{font-size:12px;color:var(--ink3);margin-top:8px}
+
+/* count */
+.cand{display:grid;grid-template-columns:110px 1fr 130px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule2)}
+.cand:last-child{border:0}
+.cand .nm{font-weight:700;line-height:1.3}
+.cand .bar{height:22px;background:var(--rule2);border-radius:1px;overflow:hidden}
+.cand .bar i{display:block;height:100%;transition:width .5s;background:var(--ink3)}
+.cand .bar i.kmt{background:var(--kmt)}.cand .bar i.dpp{background:var(--dpp)}.cand .bar i.tpp{background:var(--tpp)}.cand .bar i.minor{background:var(--minor)}
+.cand .v{text-align:right;font-family:var(--f-mono);font-size:13px}
+.cand.win{background:var(--accent-soft);margin-inline:-8px;padding-inline:8px}
+.me{font-size:11px;background:var(--ink);color:var(--paper);border-radius:3px;padding:0 5px;margin-left:4px;font-weight:500}
+.cnt{text-align:center;padding:6px 0 14px}
+.cnt .big{font-family:var(--f-display);font-size:clamp(44px,8vw,80px);font-weight:900;line-height:1}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.pick button{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:14px;text-align:left}
+.pick button:hover{border-color:var(--accent);background:var(--accent-soft)}
+.pick b{font-family:var(--f-display);font-size:20px;display:block}
+.end{font-family:var(--f-display);font-weight:900;font-size:clamp(32px,6vw,56px);text-align:center;margin:0}
+.foot{font-size:12.5px;color:var(--ink3);margin-top:28px}
+.legal{font-size:12.5px;color:var(--ink3);margin-top:20px}
+@media(max-width:520px){.cand{grid-template-columns:80px 1fr 95px}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const RACES=[
+ {id:'tpe',name:'台北市',el:2150,to:.66,c:[
+  {n:'蔣萬安',p:'kmt',no:5,w:50},{n:'沈伯洋',p:'dpp',no:3,w:43},{n:'唐新民',p:'minor',no:6,w:2.5},{n:'郭璽',p:'minor',no:1,w:2},{n:'林志成',p:'ind',no:2,w:1.5},{n:'蕭文乾',p:'minor',no:4,w:1}]},
+ {id:'ntpc',name:'新北市',el:3320,to:.64,c:[
+  {n:'李四川',p:'kmt',no:3,w:48},{n:'蘇巧慧',p:'dpp',no:1,w:48},{n:'蘇輝湟',p:'ind',no:2,w:2}]},
+ {id:'tyn',name:'桃園市',el:1830,to:.63,c:[
+  {n:'張善政',p:'kmt',no:2,w:56},{n:'黃世杰',p:'dpp',no:1,w:44}]},
+ {id:'txg',name:'台中市',el:2330,to:.66,c:[
+  {n:'江啟臣',p:'kmt',no:3,w:50},{n:'何欣純',p:'dpp',no:1,w:47},{n:'洪麗華',p:'minor',no:2,w:1.5}]},
+ {id:'tnn',name:'台南市',el:1520,to:.65,c:[
+  {n:'陳亭妃',p:'dpp',no:3,w:40},{n:'謝龍介',p:'kmt',no:2,w:42},{n:'葉人文',p:'ind',no:4,w:4},{n:'蕭燐洪',p:'minor',no:1,w:2.5}]},
+ {id:'khh',name:'高雄市',el:2320,to:.65,c:[
+  {n:'賴瑞隆',p:'dpp',no:5,w:50},{n:'柯志恩',p:'kmt',no:3,w:43},{n:'張靜',p:'minor',no:1,w:2},{n:'王肇民',p:'ind',no:2,w:1.5},{n:'洪方隆',p:'ind',no:4,w:1.5}]}
+];
+const PN={kmt:'國民黨',dpp:'民進黨',tpp:'民眾黨',ind:'無黨籍',minor:'其他政黨'};
+const START=new Date(2026,10,17),DAYS=11,VOTE=new Date(2026,10,28,16,0,0);
+const $=s=>document.querySelector(s),app=$('#app');
+const pickOne=a=>a[Math.floor(Math.random()*a.length)];
+const randn=()=>{let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)};
+const clamp=(x,a=0,b=100)=>Math.max(a,Math.min(b,x));
+const dstr=i=>{const d=new Date(START);d.setDate(d.getDate()+i);return `${d.getMonth()+1}/${d.getDate()}（${'日一二三四五六'[d.getDay()]}）`};
+const tag=c=>`<span class="tag ${c.p}">${PN[c.p]}</span>`;
+const pad=n=>String(n).padStart(2,'0');
+let timer=null;
+const stopTimer=()=>{clearInterval(timer);timer=null};
+
+const EVENTS=[
+ {t:'菜市場掃街',d:'清晨的傳統市場人潮洶湧，攤商熱情邀你試吃，也有人直接問你「物價怎麼辦？」',o:[
+  {l:'逐攤握手、認真聽',s:'體力 -15　基層好感 ↑',e:-15,pts:1.3,m:3},
+  {l:'丟出具體平價政見',s:'體力 -8　可能被追問細節',e:-8,pts:1.0,m:6,risk:.25},
+  {l:'快速走過、專心拍影片',s:'體力 -5　聲量 ↑',e:-5,pts:.4,m:9}]},
+ {t:'短影音意外爆紅',d:'你昨天的一段口誤被剪成短影音，點閱數正在狂飆。',o:[
+  {l:'自嘲回應、順勢玩梗',s:'聲量大增，有些風險',pts:1.2,m:12,risk:.3},
+  {l:'正式道歉澄清',s:'穩健但沒什麼聲量',pts:.2,m:2},
+  {l:'置之不理',s:'讓時間沖淡一切',pts:-.3,m:-2}]},
+ {t:'議題爆點：房價與交通',d:'一份報告指出通勤時間與租金持續上升，記者在你的行程上堵你要政見。',o:[
+  {l:'提出完整政策包',s:'資金 -10　專業形象 ↑',c:-10,pts:1.4,m:4},
+  {l:'批評現任施政不力',s:'基本盤 ↑ 中間選民可能反感',pts:1.0,m:5,risk:.35},
+  {l:'改日再回應',s:'被說閃避',pts:-.5,m:-3}]},
+ {t:'地方派系來拜會',d:'一位地方有力人士表示，願意動員「自己的票」，但希望你承諾一些事。',o:[
+  {l:'欣然接受、合影',s:'票倉 ↑　可能被批評',pts:1.8,m:2,risk:.4},
+  {l:'禮貌婉拒，守住形象',s:'清流形象 ↑',pts:.4,m:5},
+  {l:'私下談，不公開',s:'風險未知',pts:1.0,risk:.5}]},
+ {t:'青年與首投族座談',d:'一群大學生拋出學貸、薪資和心理健康等議題，現場有人在直播。',o:[
+  {l:'坦誠承認不足，並承諾改進',s:'體力 -8',e:-8,pts:1.1,m:6},
+  {l:'請明星網紅站台',s:'資金 -12　聲量 ↑',c:-12,pts:1.0,m:11},
+  {l:'只講政見，不互動',s:'安全但無感',pts:.2,m:1}]},
+ {t:'對手陣營開記者會',d:'對手宣布一項新政策，標題很吸睛，內容細節卻很少。',o:[
+  {l:'嚴謹拆解其漏洞',s:'可能被說抹黑',pts:.9,m:5,risk:.3},
+  {l:'推出更好的方案',s:'資金 -8',c:-8,pts:1.2,m:4},
+  {l:'不做回應，專注自己的節奏',s:'穩定',pts:.3}]},
+ {t:'宗教廟宇與廟會',d:'今晚廟會有三場，每一場都想請你上台說幾句話。',o:[
+  {l:'全部跑完',s:'體力 -20　基層 ↑',e:-20,pts:1.6,m:3},
+  {l:'挑兩場重點場',s:'體力 -10',e:-10,pts:1.0,m:2},
+  {l:'派代表出席',s:'休息一下',e:6,pts:-.2}]},
+ {t:'內部數據不如預期',d:'內部數據顯示某一區的支持度下滑，幕僚焦慮地圍過來。',o:[
+  {l:'重點補強該區',s:'資金 -10　體力 -10',c:-10,e:-10,pts:1.3,m:2},
+  {l:'維持原策略',s:'相信選民的判斷',pts:.2},
+  {l:'發動「危機動員」呼籲',s:'氣勢 ↑，但可能被說操作',pts:1.0,m:6,risk:.3}]},
+ {t:'媒體專訪邀約',d:'電視台給你整整三十分鐘的專訪，但主持人以尖銳著稱。',o:[
+  {l:'上節目硬碰硬',s:'聲量大增，高風險',pts:1.8,m:10,risk:.4,e:-6},
+  {l:'改選有好感度的網路節目',s:'輕鬆但觸及有限',pts:.7,m:4},
+  {l:'婉拒',s:'省力',pts:-.3,m:-2}]},
+ {t:'捐款與競選經費',d:'財務長說後續宣傳經費吃緊，有企業和社團願意提供捐款。',o:[
+  {l:'發動小額募款',s:'資金 +15　需耗費心力',c:15,e:-6,pts:.5,m:2},
+  {l:'接受大額企業捐款',s:'資金 +30　可能引起爭議',c:30,pts:0,risk:.4},
+  {l:'縮減宣傳、省錢',s:'資金 +8',c:8,pts:-.4,m:-3}]},
+ {t:'突發天氣：大雨',d:'午後突然傾盆大雨，戶外活動場地一片泥濘。',o:[
+  {l:'照常舉行，淋雨握手',s:'體力 -12　感動人心？',e:-12,pts:1.2,m:7},
+  {l:'改到室內',s:'場面較冷清',pts:.3},
+  {l:'取消行程',s:'體力 +8',e:8,pts:-.6,m:-2}]},
+ {t:'假訊息四起',d:'網路流傳一則關於你的不實訊息，已經被轉發上千次。',o:[
+  {l:'立即發布澄清、報警',s:'資金 -6',c:-6,pts:.8,m:5},
+  {l:'請支持者協力闢謠',s:'成效不定',pts:.7,m:3,risk:.3},
+  {l:'無視，繼續行程',s:'風險自負',pts:-.6,m:-3,risk:.35}]},
+ {t:'政見會與電視辯論',d:'今晚是關鍵的辯論，兩萬人在直播間等著看你的表現。',o:[
+  {l:'主動進攻、強勢質詢',s:'高風險高報酬',pts:2.4,m:10,risk:.45,e:-8},
+  {l:'穩穩講政見',s:'中規中矩',pts:1.1,m:4},
+  {l:'用故事打動選民',s:'親和力 ↑',pts:1.5,m:6,risk:.2}]}
+];
+const FINAL={t:'選前之夜',d:'11/27 晚上，各陣營同時舉辦造勢晚會，這是最後一次向選民喊話的機會。明天就是投票日。',o:[
+  {l:'全力動員、辦到最大',s:'資金 -20　體力 -15',c:-20,e:-15,pts:2.6,m:10,risk:.25},
+  {l:'溫情喊話：請大家出門投票',s:'提高投票意願',pts:1.8,m:6},
+  {l:'低調掃街到午夜',s:'體力 -12',e:-12,pts:1.4,m:3}]};
+const SCHED=[
+ {l:'🚶 掃街拜票',s:'體力 -10',e:-10,pts:.7,m:2},
+ {l:'📺 上節目、接受採訪',s:'聲量 +',pts:.4,m:8},
+ {l:'📢 買廣告、版面',s:'資金 -10',c:-10,pts:.8,m:5,need:10},
+ {l:'😴 休息補眠',s:'體力 +20',e:20,pts:0,m:-1}
+];
+const NEWS_G=['{x}今日行程湧入大批支持者，現場氣氛熱烈。','{x}推出新的青年政策，社群討論度提高。','有名人公開為{x}站台，帶動聲量。'];
+const NEWS_B=['{x}的政見被質疑細節不足，引發討論。','{x}在市場口誤，被剪成短影音流傳。','{x}陣營被批評動員場面不夠整齊。'];
+
+let S,OPT={pool:'all',city:'any'};
+function newGame(race,me){
+ S={race,me,day:0,en:80,cash:60,media:30,w:{},log:[],pred:null,phase:'event',ev:null,used:[],news:'',sense:null};
+ race.c.forEach(c=>S.w[c.n]=c.w);
+}
+function shares(w=S.w){const t=Object.values(w).reduce((a,b)=>a+Math.max(.3,b),0);const o={};for(const k in w)o[k]=Math.max(.3,w[k])/t*100;return o}
+function sense(){
+ const sh=shares(),mine=sh[S.me.n];const others=Object.entries(sh).filter(([k])=>k!==S.me.n).map(x=>x[1]);
+ const diff=mine-Math.max(...others)+randn()*2.5;
+ return diff>6?['😎','看來領先不少，但別鬆懈。']:diff>1.5?['🙂','略為領先，氣氛不錯。']:diff>-1.5?['😬','勝負難料，一票都不能少。']:diff>-6?['😟','有點落後，要想辦法。']:['😱','差距有點大⋯⋯但還沒結束。']
+}
+function apply(o){
+ let pts=o.pts||0,m=o.m||0,msg=[];
+ if(o.risk&&Math.random()<o.risk){pts=-Math.abs(pts)*1.1-.5;m=-Math.abs(m)*.6;msg.push('⚠ 風險發生，反效果！')}
+ const mult=.7+S.media/100*.6,scale=S.me.w<10?1.6:1;
+ const d=pts*mult*scale;
+ S.w[S.me.n]+=d;
+ S.en=clamp(S.en+(o.e||0));S.cash=clamp(S.cash+(o.c||0));S.media=clamp(S.media+m);
+ if(S.en<=15){S.w[S.me.n]-=.5*scale;msg.push('體力透支（−）')}
+ msg.unshift(d>0.05?'支持度 ▲':d<-0.05?'支持度 ▼':'影響不大');
+ return msg.join(' · ');
+}
+function dailyDrift(){
+ for(const c of S.race.c)if(c.n!==S.me.n)S.w[c.n]+=randn()*.45;
+ S.w[S.me.n]+=randn()*.3;
+ let news='';
+ if(Math.random()<.7){
+  const x=pickOne(S.race.c.filter(c=>c.w>20)),good=Math.random()<.5;
+  news=pickOne(good?NEWS_G:NEWS_B).replace('{x}',x.n);
+  S.w[x.n]+=good?1.0:-1.0;
+ }
+ S.news=news;
+}
+function nextEvent(){
+ if(S.day===DAYS-1){S.ev=FINAL;return}
+ if(S.day===4){S.ev=EVENTS[12];return}
+ const e=pickOne(EVENTS.slice(0,12).filter(e=>!S.used.includes(e)));S.used.push(e);S.ev=e;
+}
+
+/* ---------- intro ---------- */
+function pool(){
+ let all=RACES.flatMap(r=>r.c.map(c=>({r,c})));
+ if(OPT.city!=='any')all=all.filter(x=>x.r.id===OPT.city);
+ if(OPT.pool==='major')all=all.filter(x=>x.c.w>=20);
+ return all;
+}
+function renderTitle(){
+ stopTimer();
+ const total=RACES.reduce((a,r)=>a+r.el,0);
+ const odds=RACES.map(r=>{const n=pool().filter(x=>x.r===r).length;return[r,n]});
+ const sum=odds.reduce((a,b)=>a+b[1],0)||1;
+ app.innerHTML=`<section id="intro"><div class="wrap">
+ <button class="themebtn" id="th" title="切換畫面明暗">◐</button>
+ <div class="hero"><div>
+  <div class="kicker"><span class="nw">v1.0 測試版 ·</span> <span class="nw">免費競選模擬 ·</span> <span class="nw">根據2026九合一六都候選人名單 ·</span> <span class="nw">18歲以上</span></div>
+  <h1>23分之<em>1</em></h1>
+  <p class="lede">距離投票日只剩下不到兩週。你將成為六都市長候選人的其中一位，用 11 天的時間跑行程、應對突發狀況，直到 11 月 28 日開票夜。誰當選，沒有人說得準。</p>
+  <div class="counter"><div><strong id="cdD">0</strong><span>距離開票（11/28 16:00）剩餘</span></div>
+  <div><strong>約 ${(total/100).toFixed(0)} 萬</strong><span>六都合計選民（概數）</span></div></div>
+ </div>
+ <div class="odds"><h2>如果你被抽中成為候選人</h2><p class="sub">各都被抽到的機率${OPT.pool==='major'?'（只抽兩大黨）':'（含黑馬）'}</p>
+  ${odds.map(([r,n])=>`<div class="orow"><span>${r.name}</span><div class="bar"><i style="width:${n/sum*100}%"></i></div><span class="v">${(n/sum*100).toFixed(1)}%</span></div>`).join('')}
+ </div></div>
+ <div class="opts">
+  <div class="optgroup"><span class="lbl">抽選的範圍</span>
+   <div class="seg" id="sgPool"><button data-v="all" aria-pressed="${OPT.pool==='all'}">全部候選人</button><button data-v="major" aria-pressed="${OPT.pool==='major'}">只抽主要政黨</button></div>
+   <span class="hint">含黑馬時，小黨或無黨籍候選人也會被抽到，難度極高。</span></div>
+  <div class="optgroup"><span class="lbl">選區</span>
+   <select class="sel" id="cityS"><option value="any">隨機六都</option>${RACES.map(r=>`<option value="${r.id}" ${OPT.city===r.id?'selected':''}>${r.name}</option>`).join('')}</select>
+   <span class="hint">想指定出生的城市時使用。</span></div>
+  <div class="optgroup"><span class="lbl">競選天數</span><div class="seg"><button aria-pressed="true">11 天（固定）</button></div>
+   <span class="hint">11/17 到 11/27，每天一件事、一個行程，第 12 天開票。</span></div>
+  <div class="ctarow"><button class="cta" id="go">開始抽選</button><span class="ctahint">設定不用改，直接抽也沒關係。</span></div>
+ </div>
+ <div class="notes">
+  <div><h3>每天一個抉擇</h3><p>每天會遇到一件競選事件，做出決定後，再安排當天的行程。體力、資金、聲量都有限。</p></div>
+  <div><h3>民調封關</h3><p>依選罷法，投票前 10 天不得公布民調。第 2 天起，你只能靠幕僚的「感覺」判斷選情。</p></div>
+  <div><h3>預測開票結果</h3><p>最後一天，先猜誰會當選，再看開票逐步揭曉，比較你的預測與結果。</p></div>
+ </div>
+ <p class="fine">本遊戲為虛構娛樂模擬，參考公開報導的候選人名單；初始實力、選民數、投票率與所有事件皆為作者設定，不代表任何真實民調、預測或對任何人的評價。靈感來自 1in8b.life。</p>
+ </div></section>`;
+ $('#go').onclick=draw;
+ $('#th').onclick=()=>{const r=document.documentElement,c=r.dataset.theme;r.dataset.theme=c==='dark'?'light':'dark'};
+ $('#cityS').onchange=e=>{OPT.city=e.target.value;renderTitle()};
+ document.querySelectorAll('#sgPool button').forEach(b=>b.onclick=()=>{OPT.pool=b.dataset.v;renderTitle()});
+ const tick=()=>{const ms=VOTE-new Date();const el=$('#cdD');if(!el)return;if(ms<=0){el.textContent='已開票';return}
+  const s=Math.floor(ms/1000);el.textContent=`${Math.floor(s/86400)}天 ${pad(Math.floor(s%86400/3600))}:${pad(Math.floor(s%3600/60))}:${pad(s%60)}`};
+ tick();timer=setInterval(tick,1000);
+}
+function draw(){
+ stopTimer();
+ const all=pool();
+ app.innerHTML=`<section id="roll" class="wrap"><div class="roller"><div class="lbl">正在抽選候選人</div><div class="country" id="rn">…</div><div class="meta" id="rm"></div></div></section>`;
+ let i=0;
+ const iv=setInterval(()=>{const x=pickOne(all);$('#rn').textContent=x.c.n;$('#rm').textContent=`${x.r.name}長 · ${PN[x.c.p]}`;
+  if(++i>22){clearInterval(iv);const f=pickOne(all);reveal(f.r,f.c)}},90);
+}
+function reveal(race,me){
+ const rivals=race.c.filter(c=>c!==me);
+ const sh=shares(Object.fromEntries(race.c.map(c=>[c.n,c.w])));
+ const poll=race.c.map(c=>`${c.n} ${(sh[c.n]+randn()*1.5).toFixed(0)}%`);
+ const hard=me.w<10?'黑馬挑戰（極高難度）':me.w>=45?'旗鼓相當的選戰':'中等難度';
+ const no=`NO.${pad(race.c.indexOf(me)+1)}-${race.id.toUpperCase()}-${me.no}`;
+ app.innerHTML=`<section id="roll" class="wrap"><div class="cert">
+  <div class="band"><b>候選人登記</b><span>${no}</span></div>
+  <div class="body"><div class="lbl">姓名</div><h2>${me.n}</h2>
+   <p class="story">你將代表${PN[me.p]==='無黨籍'?'無黨籍':PN[me.p]}，角逐 ${race.name}長。距離投票日還有 11 天。</p>
+   <div class="fields">
+    <div><span class="lbl">參選</span><b>${race.name}長</b></div>
+    <div><span class="lbl">政黨</span><b>${PN[me.p]}</b></div>
+    <div><span class="lbl">號次</span><b>${me.no} 號</b></div>
+    <div><span class="lbl">選民</span><b>約 ${(race.el/100).toFixed(0)} 萬</b></div>
+    <div><span class="lbl">難度</span><b>${hard}</b></div>
+    <div><span class="lbl">對手</span><b>${rivals.length} 人</b></div>
+   </div>
+   <div class="odds-line">對手：${rivals.map(c=>`${c.n}（${PN[c.p]}）`).join('、')}。<br><span class="mono">11/17 最後一批公開民調（模擬值，含誤差）：${poll.join('　')}</span></div>
+  </div>
+  <div class="foot"><button class="ghost" id="redo">重新抽選</button><button class="cta" id="start">開始競選</button></div>
+ </div></section>`;
+ $('#start').onclick=()=>{newGame(race,me);nextEvent();renderDay()};
+ $('#redo').onclick=draw;
+}
+
+/* ---------- game ---------- */
+function statBar(l,v,c){return `<div class="stat"><span>${l}</span><div class="bar"><i style="width:${v}%;background:${c}"></i></div><span class="v">${v|0}</span></div>`}
+function renderDay(){
+ const ev=S.ev,me=S.me,left=DAYS-S.day;
+ const sn=S.day===0?null:sense();
+ const cells=Array.from({length:DAYS+1},(_,i)=>`<i class="${i<S.day?'done':i===S.day?'now':i===DAYS?'vote':''}">${i===DAYS?'票':i+1}</i>`).join('');
+ const logHtml=S.log.length?S.log.slice().reverse().map(x=>`<li><span class="a">${x.d}</span><span class="x">${x.t}<span class="r">${x.r}</span></span></li>`).join(''):'<li><span class="a">—</span><span class="x empty">還沒有紀錄。</span></li>';
+ let main;
+ if(S.phase==='event'){
+  main=`<div class="panel evt">${S.news?`<div class="news">📰 ${S.news} <span class="lbl">（模擬事件）</span></div>`:''}
+   <div class="lbl">今日事件</div><h2>${ev.t}</h2><p>${ev.d}</p>
+   <div class="choices">${ev.o.map((o,i)=>`<button class="choice" data-i="${i}" ${o.c<0&&S.cash+o.c<0?'disabled':''}><b>${o.l}</b><span>${o.s}</span></button>`).join('')}</div></div>`;
+ }else{
+  main=`<div class="panel evt"><div class="lbl">今日行程</div><h2>剩下的時間要做什麼？</h2><p>事件處理完了，安排今天剩下的行程。</p>
+   <div class="sched">${SCHED.map((o,i)=>`<button class="choice" data-i="${i}" ${o.need&&S.cash<o.need?'disabled':''}><b>${o.l}</b><span>${o.s}</span></button>`).join('')}</div></div>`;
+ }
+ app.innerHTML=`<section id="game">
+ <header class="topbar"><div class="wrap"><div class="brand">23分之<em>1</em></div>
+  <div class="agebox"><div class="age">${left}<small>天</small></div><div class="yr"><span class="t">${dstr(S.day)} · 距離開票</span><div class="prog"><i style="width:${S.day/DAYS*100}%"></i></div></div></div>
+  <button class="ghost" id="quit" style="padding:6px 12px;font-size:13px">離開</button></div></header>
+ <div class="wrap life">
+  <div class="col">
+   <div class="panel idcard"><div class="top"><span>CANDIDATE</span><span>${S.race.name}長</span></div>
+    <div class="in"><div class="portrait">${me.n[0]}<i style="background:var(--${me.p})"></i></div>
+     <div style="min-width:0"><div class="nm">${me.n}</div><dl><dt>政黨</dt><dd>${tag(me)}</dd><dt>號次</dt><dd>${me.no} 號</dd><dt>對手</dt><dd>${S.race.c.length-1} 人</dd></dl></div></div>
+    <div class="mrz">&lt;&lt;${me.n.length}${S.race.id.toUpperCase()}&lt;${me.no}&lt;&lt;1128&lt;&lt;&lt;&lt;</div></div>
+   <div class="panel"><h3><span>狀態</span><span class="lbl">0–100</span></h3>
+    ${statBar('體力',S.en,'var(--good)')}${statBar('資金',S.cash,'var(--gold)')}${statBar('聲量',S.media,'var(--stamp)')}
+    <details class="stathelp"><summary>這些狀態代表什麼？</summary><ul><li><b>體力</b> 太低會精神不濟、扣分。</li><li><b>資金</b> 買廣告、請人站台要花錢。</li><li><b>聲量</b> 放大你每個決定的影響力。</li></ul></details>
+    <div class="sense">${S.day===0?'今天仍可參考最後一批民調（見登記頁）。':`<b>${sn[0]} 幕僚的感覺：</b>${sn[1]}<br><span class="lbl">民調封關中，無法取得數字</span>`}</div></div>
+  </div>
+  <div class="col">${main}
+   <div class="panel"><h3><span>競選紀錄</span><span class="lbl">最新的在前</span></h3><ul class="feed">${logHtml}</ul></div></div>
+  <div class="col col3">
+   <div class="panel"><h3><span>對手</span><span class="lbl">${S.race.name}長</span></h3>
+    ${S.race.c.filter(c=>c!==me).map(c=>`<div class="rival"><div><span class="n">${c.n}</span> ${tag(c)}<small>${c.no} 號</small></div></div>`).join('')}</div>
+   <div class="panel"><h3><span>競選日曆</span><span class="lbl">一格 = 1天</span></h3><div class="grid10">${cells}</div>
+    <div class="gridkey">綠＝已過 · 紅＝今天 · 黑＝開票日 11/28</div></div>
+  </div>
+ </div></section>`;
+ const q=$('#quit');if(q)q.onclick=()=>{if(confirm('確定要離開這場選戰嗎？'))renderTitle()};
+ app.querySelectorAll('.choice').forEach(b=>b.onclick=()=>{
+  if(S.phase==='event'){
+   const o=ev.o[b.dataset.i];S.log.push({d:dstr(S.day).split('（')[0],t:`${ev.t}：${o.l}`,r:apply(o)});
+   S.phase='sched';renderDay();window.scrollTo(0,0);
+  }else{
+   const o=SCHED[b.dataset.i];S.log.push({d:dstr(S.day).split('（')[0],t:o.l.slice(2),r:apply(o)});endDay();
+  }});
+}
+function endDay(){
+ S.en=clamp(S.en+8);S.day++;
+ if(S.day>=DAYS){renderPredict();return}
+ dailyDrift();nextEvent();S.phase='event';renderDay();window.scrollTo(0,0);
+}
+function renderPredict(){
+ window.scrollTo(0,0);
+ app.innerHTML=`<section class="wrap" style="padding-block:40px"><div class="kicker">${dstr(DAYS)} · 投票日</div>
+ <h1 style="font-family:var(--f-display);font-size:clamp(44px,9vw,110px);font-weight:900;line-height:1;margin:12px 0">開票之前，<br>你的<em style="font-style:normal;color:var(--accent)">預測</em></h1>
+ <p class="lede">競選結束了。你認為誰會當選${S.race.name}長？</p><div class="pick" style="margin-top:24px">
+ ${S.race.c.map(c=>`<button data-n="${c.n}"><b>${c.n}${c.n===S.me.n?'<span class="me">我</span>':''}</b>${tag(c)} <span class="lbl">${c.no} 號</span></button>`).join('')}</div></section>`;
+ app.querySelectorAll('.pick button').forEach(b=>b.onclick=()=>{S.pred=b.dataset.n;count()});
+}
+function finalShares(){
+ const w={};for(const c of S.race.c)w[c.n]=Math.max(.3,S.w[c.n])*(1+randn()*.04);
+ return shares(w);
+}
+function count(){
+ const fin=finalShares(),cs=S.race.c;
+ const turnout=S.race.to+randn()*.015,total=Math.round(S.race.el*10000*turnout);
+ let step=0;const N=12;
+ function paint(pct,sh,final){
+  const votes=Math.round(total*pct/100),mx=Math.max(...Object.values(sh));
+  const sorted=cs.slice().sort((a,b)=>sh[b.n]-sh[a.n]);
+  app.innerHTML=`<section class="wrap" style="padding-block:30px"><div class="cnt"><div class="lbl">${S.race.name}長選舉 · ${final?'開票完畢':'開票中'}</div><div class="big">${pct}%</div>
+  <div class="lbl mono">投開票所已開出 ${pct}%　累計 ${votes.toLocaleString()} 票</div></div>
+  <div class="panel">${sorted.map((c,i)=>`<div class="cand ${final&&i===0?'win':''}"><div class="nm">${c.n}${c.n===S.me.n?'<span class="me">我</span>':''}<br>${tag(c)}</div>
+  <div class="bar"><i class="${c.p}" style="width:${sh[c.n]/mx*100}%"></i></div>
+  <div class="v"><b>${sh[c.n].toFixed(2)}%</b><br>${Math.round(votes*sh[c.n]/100).toLocaleString()}</div></div>`).join('')}</div><div id="res"></div></section>`;
+ }
+ const iv=setInterval(()=>{
+  step++;const pct=Math.min(100,Math.round(step/N*100));
+  if(step>=N){clearInterval(iv);paint(100,fin,true);setTimeout(()=>result(fin),1000);return}
+  const noise=(1-step/N)*5,raw={};
+  cs.forEach(c=>raw[c.n]=Math.max(.2,fin[c.n]+randn()*noise*(fin[c.n]/50+.2)));
+  paint(pct,shares(raw),false);
+ },550);
+}
+function result(fin){
+ const sorted=S.race.c.slice().sort((a,b)=>fin[b.n]-fin[a.n]);
+ const win=sorted[0],won=win.n===S.me.n,rank=sorted.findIndex(c=>c.n===S.me.n)+1;
+ const margin=(fin[sorted[0].n]-fin[sorted[1].n]).toFixed(2),predOK=S.pred===win.n,my=fin[S.me.n].toFixed(2);
+ let title,txt;
+ if(won){title='當選';txt=`你以 ${my}% 的得票率贏得${S.race.name}長選舉，領先第二名 ${margin} 個百分點。接下來是四年的施政考驗。`}
+ else{title=rank===2&&margin<3?'惜敗':'落選';txt=`你得到 ${my}% 的選票，排名第 ${rank}。${win.n} 以 ${fin[win.n].toFixed(2)}% 當選，領先第二名 ${margin} 個百分點。${S.me.w<10?'身為黑馬，你已經打出了一場不容易的選戰。':'民主就是這樣，一票一票決定。'}`}
+ $('#res').innerHTML=`<div class="panel" style="margin-top:16px"><p class="end" style="color:${won?'var(--accent)':'var(--ink)'}">${title}</p>
+ <p style="text-align:center;font-size:16px">${txt}</p>
+ <p style="text-align:center;color:${predOK?'var(--good)':'var(--ink3)'}">你的預測：${S.pred}　${predOK?'✅ 預測正確':`❌ 與結果不同（當選者為 ${win.n}）`}</p>
+ <div class="ctarow" style="justify-content:center"><button class="cta" id="again">再玩一次</button></div>
+ <p class="foot" style="text-align:center">本結果純屬模擬，不代表任何真實預測。請記得 11/28 08:00–16:00 帶著證件去投票。</p></div>`;
+ $('#again').onclick=()=>{window.scrollTo(0,0);renderTitle()};
+ $('#res').scrollIntoView({behavior:'smooth',block:'end'});
+}
+renderTitle();
+</script>
+</body>
+</html>
